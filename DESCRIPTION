@@ -11,4 +11,4 @@ LazyData: true
 URL: https://github.com/GoranLindmark/bridgeSannolikheter
 BugReports: https://github.com/GoranLindmark/bridgeSannolikheter/issues
 RoxygenNote: 7.2.1
-Imports: dplyr, tidyr, magrittr
+Imports: dplyr, tidyr, magrittr, tidyft
