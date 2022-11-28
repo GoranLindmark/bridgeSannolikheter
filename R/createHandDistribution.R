@@ -47,7 +47,7 @@ createHandDistribution <- function(NoSimulations){
   }
 
 
-  filterRealisticHandTypes <- function( simhandTibble ){
+  generateHandCodes <- function( simhandTibble ){
 
     simhandTibble$handCode <- ""
     for (i in 1:nrow(simhandTibble)){
@@ -100,6 +100,46 @@ createHandDistribution <- function(NoSimulations){
       if (all(x %in% c(1,1,3,8))){
         simhandTibble$handCode[i] <- 8311
       }
+
+
+      if (all(x %in% c(5,7,1,08))){
+        simhandTibble$handCode[i] <- 5710
+      }
+      if (all(x %in% c(5,6,2,0))){
+        simhandTibble$handCode[i] <- 5620
+      }
+      if (all(x %in% c(5,5,3,0))){
+        simhandTibble$handCode[i] <- 5530
+      }
+      if (all(x %in% c(5,4,4,0))){
+        simhandTibble$handCode[i] <- 5440
+      }
+      if (all(x %in% c(6,6,1,0))){
+        simhandTibble$handCode[i] <- 6610
+      }
+      if (all(x %in% c(6,5,2,0))){
+        simhandTibble$handCode[i] <- 6520
+      }
+      if (all(x %in% c(6,4,3,0))){
+        simhandTibble$handCode[i] <- 6430
+      }
+      if (all(x %in% c(9,3,1,0))){
+        simhandTibble$handCode[i] <- 9310
+      }
+      if (all(x %in% c(9,2,2,0))){
+        simhandTibble$handCode[i] <- 9220
+      }
+      if (all(x %in% c(9,4,0,0))){
+        simhandTibble$handCode[i] <- 9400
+      }
+
+
+
+
+
+
+
+
     }
     return(simhandTibble)
   }
@@ -107,18 +147,26 @@ createHandDistribution <- function(NoSimulations){
 
 # ------------------------  MAIN
 
-  simhandTibble <- handType(simHand())
-  for (i in 1:NoSimulations){
+
+
+  for (i in 1:NoSimulations) {
     x <-  handType(simHand())
-    if (ncol(x) == 4){
-      simhandTibble <- rbind(simhandTibble,x)
+    if (ncol(x) == 3) {
+      x <- cbind(x, K = 0)
+      names(x) = c("S", "H", "R", "K")
+    }
+    if (ncol(x) == 2) {
+      x <- cbind(x, R = 0, K = 0)
+      names(x) = c("S", "H", "R", "K")
+    }
+
+    if (i == 1) {
+      simhandTibble <- x
+    } else {
+      simhandTibble <- rbind(simhandTibble, x)
     }
   }
 
-
-  filterRealisticHandTypes(simhandTibble) %>%
+  generateHandCodes(simhandTibble) %>%
     dplyr::select(handCode)
-
-
-
 }
