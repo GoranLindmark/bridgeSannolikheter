@@ -2,5 +2,6 @@
 
 export(createHandDistribution)
 import(dplyr)
+import(ggplot2)
 import(tidyr)
 importFrom(magrittr,'%>%')
